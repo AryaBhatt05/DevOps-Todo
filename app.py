@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -22,9 +23,16 @@ def add():
 
 @app.route('/delete/<task_id>')
 def delete(task_id):
-    from bson.objectid import ObjectId
     collection.delete_one({'_id': ObjectId(task_id)})
     return redirect('/')
+
+# NEW: JSON API Route for Git Branch Task
+@app.route('/api', methods=['GET'])
+def get_data():
+    return jsonify([
+        {"name": "Arya Task 1", "desc": "Flask API testing"},
+        {"name": "Arya Task 2", "desc": "Modified by arya_new branch"}
+    ])
 
 if __name__ == '__main__':
     app.run(debug=True)
