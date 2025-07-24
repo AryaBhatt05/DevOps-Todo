@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>📝 Flask To-Do</title>
+    <title>ToDo - Arya</title>
 </head>
 <body>
-  <h1>📝 My To-Do List</h1>
+    <h1>Submit a To-Do Item</h1>
+    <form action="/submittodoitem" method="POST">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" name="itemName" required><br><br>
 
-  <form action="/add" method="post">
-    <input type="text" name="task" placeholder="Enter a task" required>
-    <button type="submit">Add</button>
-  </form>
+        <label for="itemDescription">Item Description:</label>
+        <input type="text" id="itemDescription" name="itemDescription" required><br><br>
 
-  <ul>
-    {% for task in tasks %}
-      <li>
-        {{ task['task'] }}
-        <a href="/delete/{{ task['_id'] }}">❌</a>
-      </li>
-    {% endfor %}
-  </ul>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
