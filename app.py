@@ -33,6 +33,17 @@ def get_data():
         {"name": "Arya Task 1", "desc": "Flask API testing"},
         {"name": "Arya Task 2", "desc": "Modified by arya_new branch"}
     ])
+    
+@app.route('/submittodoitem', methods=['POST'])
+def submit_todo_item():
+    item_name = request.form.get('itemName')
+    item_desc = request.form.get('itemDescription')
+
+    if item_name and item_desc:
+        collection.insert_one({'item_name': item_name, 'item_description': item_desc})
+
+    return redirect('/')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
